@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:VanillaCare.ViewModels"
+             xmlns:model="clr-namespace:VanillaCare.Models"
+             x:Class="VanillaCare.Views.Page_MainTaskTuteur">
+
+    <ContentPage.BindingContext>
+        <vm:TaskTuteurViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+
+
+
+        <RefreshView IsRefreshing="{Binding IsBusy}">
+            <CollectionView ItemsSource="{Binding DataTaskTuteurs}" SelectionMode="None" EmptyView="no data to display" Margin="4">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout VerticalItemSpacing="6" HorizontalItemSpacing="6" Span="10"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TaskTuteur">
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <StackLayout.Triggers>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding Trigger_MostHigh}" Value="0">
+                                    <Setter Property="BackgroundColor" Value="LightGreen"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding Trigger_MostHigh}" Value="1">
+                                    <Setter Property="BackgroundColor" Value="Yellow"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding Trigger_MostHigh}" Value="2">
+                                    <Setter Property="BackgroundColor" Value="Orange"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding Trigger_MostHigh}" Value="3">
+                                    <Setter Property="BackgroundColor" Value="OrangeRed"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding Trigger_MostHigh}" Value="4">
+                                    <Setter Property="BackgroundColor" Value="Black"/>
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <Label Text="{Binding Name}" TextColor="Black">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Trigger_MostHigh}" Value="4">
+                                        <Setter Property="TextColor" Value="BlanchedAlmond"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskTuteurViewModel}},Path=CMD_ItemTapped}"
+                                                      CommandParameter="{Binding .}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+            </CollectionView>
+            
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

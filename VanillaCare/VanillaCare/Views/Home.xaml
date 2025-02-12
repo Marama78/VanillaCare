@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:VanillaCare.ViewModels"
+             x:Class="VanillaCare.Views.Home">
+
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="VanillaCare"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                   FontSize="Large"
+                   FontAttributes="Bold"/>
+            <Button Text="Erase TaskTuteur DB" Command="{Binding CMD_EraseTaskTuteurDataBase}"/>
+            <Button Text="CREATE TaskTuteur DB" Command="{Binding CMD_CreateTaskTuteurDataBase}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
